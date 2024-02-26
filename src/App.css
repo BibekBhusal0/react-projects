@@ -1,17 +1,33 @@
 .App {
   text-align: center;
 }
-
 .board{
-  color: red;
-  display: grid;
-  grid-template-rows:repeat(3 1fr);
   padding: 2rem;
+}
+
+.board, .square{
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .square{
   width: 100px;
   height: 100px;
-  font-size: 100px;
+  padding: 0;
   margin: 0;
+  font-size: 80px;
+  border: 1px solid black;
+}
+.row{
+  margin: 0;
+  padding: 0;
+}
+.X {
+  color: #d32f2f;
+}
+
+.O {
+  color: #1565c0;
 }
