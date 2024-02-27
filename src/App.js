@@ -21,6 +21,10 @@ function calculateWinner(squares) {
   return null;
 }
 
+function checkIfDraw(board) {
+  return !board.some((mark) => mark === "");
+}
+
 function Square({ value, clickFunction }) {
   return (
     <div className="square" onClick={clickFunction}>
@@ -33,26 +37,31 @@ function Board() {
   const [board, setBoard] = useState(Array(9).fill(""));
   const [x, changeTurn] = useState(true);
   const [winner, changeWinner] = useState(null);
+  const [draw, checkDraw] = useState(false);
 
   const handleClick = (index) => {
-    if (board[index] === "" && !winner) {
+    if (board[index] === "" && !winner && !draw) {
       const temp_board = [...board];
       temp_board[index] = x ? "X" : "O";
       changeTurn(!x);
       setBoard(temp_board);
       changeWinner(calculateWinner(temp_board));
+      checkDraw(checkIfDraw(temp_board));
     }
   };
 
   const reset = () => {
     setBoard(Array(9).fill(""));
     changeWinner(null);
+    checkDraw(false);
   };
 
   return (
     <main>
       <div className="info">
-        {winner ? `${winner} wins` : `${x ? "X" : "O"}'s turn`}
+        {winner
+          ? `${winner} wins`
+          : `${draw ? "It's a draw" : `${x ? "X" : "O"}'s turn`}`}
       </div>
       <div className="board">
         {[0, 1, 2].map((row) => {
